@@ -1,0 +1,13 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+  - name: install apache
+    action: yum pkg=httpd state=installed
+  - name: install nginx
+    action: yum pkg=nginx state=installed
+  - name: latest ntpd
+    action: yum pkg=ntp state=latest
+  handlers:
+    - name: restart ntpd
+      action: service name=ntpd state=restarted
