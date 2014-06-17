@@ -9,6 +9,7 @@
       - bridge-utils
       - arch-install-scripts
       - netctl
+      - rsync
   handlers:
     - name: restart ntpd
       action: service name=ntpd state=restarted
