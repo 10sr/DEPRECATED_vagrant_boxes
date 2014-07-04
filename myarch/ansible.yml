@@ -1,0 +1,14 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+  - name: Install required packages
+    action: pacman pkg={{ item }} state=installed
+    with_items:
+      - docker
+      - git
+  - name: Enable and start docker
+    action: service name=docker enabled=yes state=started
+  handlers:
+    - name: restart ntpd
+      action: service name=ntpd state=restarted

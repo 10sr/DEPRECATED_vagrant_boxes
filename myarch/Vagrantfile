@@ -111,6 +111,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   chef.chef_server_url = "https://api.opscode.com/organizations/ORGNAME"
   #   chef.validation_key_path = "ORGNAME-validator.pem"
   # end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "ansible.yml"
+    ansible.verbose = "v"
+    ansible.extra_vars = {
+      ansible_python_interpreter: '/usr/bin/python2'
+    }
+  end
   #
   # If you're using the Opscode platform, your validator client is
   # ORGNAME-validator, replacing ORGNAME with your organization name.
