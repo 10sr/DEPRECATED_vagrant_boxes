@@ -3,13 +3,15 @@
   sudo: yes
   tasks:
   - name: Install required packages
-    action: pacman pkg={{ item }} state=installed
+    pacman: pkg={{ item }} state=installed
     with_items:
       - lxc
       - bridge-utils
       - arch-install-scripts
       - netctl
       - rsync
+  - name: Put netctl for lxc bridge
+    copy: src=lxcbridge.netctl dest=/etc/netctl/lxcbridge
   handlers:
-    - name: restart ntpd
-      action: service name=ntpd state=restarted
+  - name: restart ntpd
+    action: service name=ntpd state=restarted
