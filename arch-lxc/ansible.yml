@@ -2,7 +2,7 @@
 - hosts: all
   sudo: yes
   tasks:
-  - name: Install required packages
+  - name: Install packages for lxc
     pacman: pkg={{ item }} state=installed
     with_items:
       - lxc
@@ -12,6 +12,13 @@
       - rsync
   - name: Put netctl for lxc bridge
     copy: src=lxcbridge.netctl dest=/etc/netctl/lxcbridge
+
+  - name: Install docker
+    pacman: pkg=docker state=installed
+  - name: start and enable docker
+    service: name=docker enabled=yes state=started
+  - name: Add user to docker group
+    user: name=vagrant groups=docker append=yes
   handlers:
   - name: restart ntpd
     action: service name=ntpd state=restarted
